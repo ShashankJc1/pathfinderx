@@ -1,14 +1,13 @@
 # commune
 ## 👥 Authors <a name="authors"></a>
 👤 **Shashank Janagam Chandra**
-- Project Lead
-
-## 👥 Authors <a name="authors"></a>
+- Project Lead & Backend Engineer
+- 
 👤 **Sai Chaitanya Musunuru**
 - FrontEnd/UX designer
 
+👤 **Jinal Shah**
+- Database Engineer
 
-
-## 👥 Authors <a name="authors"></a>
 👤 **Raghavi Suresh**
 - DevOps/Project Manager
