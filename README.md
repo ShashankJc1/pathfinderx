@@ -2,7 +2,7 @@
 ## 👥 Authors <a name="authors"></a>
 👤 **Shashank Janagam Chandra**
 - Project Lead & Backend Engineer
-- 
+  
 👤 **Sai Chaitanya Musunuru**
 - FrontEnd/UX designer
 
