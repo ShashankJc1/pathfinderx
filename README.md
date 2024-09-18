@@ -12,5 +12,5 @@
 👤 **Raghavi Suresh**
 - DevOps/Project Manager
 
-- 👤 **katreddy siva  hemanth reddy**
+👤 **katreddy siva  hemanth reddy**
 - Testing
