@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { FEATURES } from "@/constants";
 import Image from "next/image";
@@ -12,7 +12,7 @@ const Features = () => {
           <Image
             src="/phone.png"
             alt="phone"
-            width={440}
+            width={600}
             height={1000}
             className="feature-phone"
           />
