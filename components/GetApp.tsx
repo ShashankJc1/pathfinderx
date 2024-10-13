@@ -11,7 +11,7 @@ const destinations = [
   { name: "Banff, Canada", description: "Breathtaking Rockies.", image: "/banff.jpg" },
   { name: "Paris, France", description: "Eiffel Tower & cuisine.", image: "/paris.jpeg" },
   { name: "Maui, Hawaii", description: "Lush beaches & landscapes.", image: "/maui.jpg" },
-  { name: "Cairo, Egypt", description: "Explore ancient pyramids.", image: "/cairo.webp" },
+  { name: "Cairo, Egypt", description: "Explore ancient pyramids.", image: "/cairo.jpg" },
   { name: "Rome, Italy", description: "Discover Roman history.", image: "/rome.webp" },
 ];
 
