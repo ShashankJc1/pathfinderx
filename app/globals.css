@@ -156,3 +156,33 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+input::placeholder {
+  color: #a0aec0;
+}
+
+input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #38a169; /* Green border */
+  box-shadow: 0 0 0 2px rgba(72, 187, 120, 0.4); /* Green glow */
+}
+
+input:hover {
+  border-color: #68d391; /* Light green on hover */
+}
+
+input.error {
+  border-color: #e53e3e; /* Red border for errors */
+  box-shadow: 0 0 0 2px rgba(229, 62, 62, 0.5); /* Red glow */
+}
+
+button:disabled {
+  background-color: #9ae6b4;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  background-color: #48bb78; /* Darker green on hover */
+}
