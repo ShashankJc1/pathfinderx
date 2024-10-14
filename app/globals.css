@@ -186,3 +186,20 @@ button:disabled {
 button:not(:disabled):hover {
   background-color: #48bb78; /* Darker green on hover */
 }
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.max-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.padding-container {
+  padding: 0 20px;
+}
+

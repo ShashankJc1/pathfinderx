@@ -1,3 +1,5 @@
+import { label } from "framer-motion/client";
+
 // NAVIGATION
 export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
@@ -39,11 +41,11 @@ export const NAV_LINKS = [
         'We display live updates of pricing and availability for flights, accommodations, and transport options, ensuring users have the most current information.',
     },
     {
-      title: 'Real maps can be offline',
+      title: 'AI Personalized Recommendations',
       icon: '/map.svg',
       variant: 'green',
       description:
-        'We provide a solution for you to be able to use our application when climbing, yes offline maps you can use at any time there is no signal at the location',
+        'Our AI-powered recommendation engine provides personalized travel suggestions based on user preferences, ensuring a unique and tailored experience.',
     },
 
   ];
@@ -53,22 +55,25 @@ export const NAV_LINKS = [
     {
       title: 'Learn More',
       links: [
-        'About PathfinderX',
-        'Press Releases',
-        'Environment',
-        'Jobs',
-        'Privacy Policy',
-        'Contact Us',
+        {label: 'About PathfinderX', href: '/how-do-we-work'},
+        {label: 'Press Releases', href: '#'},
+        {label: 'Environment', href: '#'},
+        {label: 'Jobs', href: '#'},
+        {label: 'Privacy Policy', href: '#'},
+        {label: 'Contact Us', href: '#'},
       ],
     },
     {
       title: 'Our Community',
-      links: ['Backpacking', 'Solo Travelling ', 
-        'Cultural travelling ',
-         'Budget Travel',
-         'Adventure Travel',
-         'Family Travel',
-          'Luxury Travel'],
+      links: [
+        { label: 'Backpacking', href: '#' },
+        { label: 'Solo Travelling', href: '#' },
+        { label: 'Cultural Travelling', href: '#' },
+        { label: 'Budget Travel', href: '#' },
+        { label: 'Adventure Travel', href: '#' },
+        { label: 'Family Travel', href: '#' },
+        { label: 'Luxury Travel', href: '#' },
+      ],
     },
   ];
   
