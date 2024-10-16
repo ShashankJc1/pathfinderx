@@ -13,9 +13,9 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    const verified = await jwtVerify(token, JWT_SECRET);
-    console.log("Token verified:", verified);
-    return NextResponse.next(); // Proceed to dashboard if verified
+    await jwtVerify(token, JWT_SECRET);
+    console.log("Token verified");
+    return NextResponse.next();
   } catch (error) {
     console.error("Invalid token:", error);
     return NextResponse.redirect(new URL("/login", request.url));

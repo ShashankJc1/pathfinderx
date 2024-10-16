@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface LoginFormInputs {
   email: string;
@@ -32,6 +32,8 @@ export default function Login() {
       document.cookie = `token=${token}; path=/`;
 
       alert("Login successful!");
+
+      // Small delay to ensure the token is set before redirect
       setTimeout(() => {
         router.push("/dashboard");
       }, 300);
