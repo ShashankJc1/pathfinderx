@@ -16,9 +16,7 @@ bun dev
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The easiest way to deploy Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 
 
@@ -26,24 +24,26 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ```
 ├── README.md
-├── App
-│   ├── contact-us
-│   │   ├── page.tsx
-│   ├── dashboard
-│   │   ├── page.tsx
-│   ├── discover
-│   │   ├── page.tsx
-│   ├── how-do-we-work
-│   │   ├── page.tsx
-│   ├── login
-│   │   ├── page.tsx
-│   ├── services
-│   │   ├── page.tsx
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── page.tsx
-├──Components
-│   ├── Button.tsx
+├── app
+|   ├── api
+│   |   ├── login
+│   |   ├── signup
+│   |   ├── contact-us
+│   |   ├── dashboard
+│   |   ├── user
+│   ├── contact-us
+│   ├── dashboard
+│   ├── discover
+│   ├── how-do-we-work
+│   ├── login
+│   ├── signup
+│   ├── services
+│   ├── profile
+│   ├── file-upload
+│   ├── layout.tsx
+│   ├── page.tsx
+├── components
+│   ├── Button.tsx
 │   ├── Camp.tsx
 │   ├── Features.tsx
 │   ├── Footer.tsx
@@ -51,5 +51,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 │   ├── Guide.tsx
 │   ├── Hero.tsx
 │   ├── Navbar.tsx
-├── Constants
-│   ├── index.ts
+│   ├── TravelCalendar.tsx
+├── constants
+│   ├── index.ts
+├── lib
+│   ├── mongodb.ts
+├── models
+│   ├── user.ts
+├── middleware.ts
+├── public
