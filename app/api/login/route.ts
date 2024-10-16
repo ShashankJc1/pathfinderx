@@ -2,10 +2,12 @@
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/user";
 import { compare } from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
 
-const JWT_SECRET = process.env.JWT_SECRET as string;
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+
+export const runtime = "nodejs"; // Ensure it runs in Node.js
 
 export async function POST(request: Request) {
   try {
@@ -22,9 +24,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
 
-    const token = jwt.sign({ email: user.email, id: user._id }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = await new SignJWT({ email: user.email, id: user._id })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("1h")
+      .sign(JWT_SECRET);
 
     const response = NextResponse.json({ message: "Login successful!", token });
     response.cookies.set("token", token, {

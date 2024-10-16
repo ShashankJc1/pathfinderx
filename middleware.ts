@@ -1,30 +1,27 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-default-secret"; // Use a fallback secret
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
 
-  // If no token, redirect to login
   if (!token) {
+    console.log("No token found. Redirecting to /login.");
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   try {
-    // Verify the token
-    jwt.verify(token, JWT_SECRET);
-    return NextResponse.next(); // Allow access to the protected route
+    const verified = await jwtVerify(token, JWT_SECRET);
+    console.log("Token verified:", verified);
+    return NextResponse.next(); // Proceed to dashboard if verified
   } catch (error) {
     console.error("Invalid token:", error);
-
-    // Redirect to login if token is invalid
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
-// Middleware configuration to protect dashboard route
 export const config = {
-  matcher: ["/dashboard/:path*"], // Protects all dashboard-related routes
+  matcher: ["/dashboard/:path*"],
 };

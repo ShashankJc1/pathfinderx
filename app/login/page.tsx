@@ -32,7 +32,9 @@ export default function Login() {
       document.cookie = `token=${token}; path=/`;
 
       alert("Login successful!");
-      router.push("/dashboard"); // Redirect to dashboard
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 300);
     } catch (error) {
       console.error("An error occurred:", error);
       setErrorMessage("An unexpected error occurred.");
