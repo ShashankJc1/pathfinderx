@@ -5,15 +5,25 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface SignUpFormInputs {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
 
 export default function SignUp() {
-  const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<SignUpFormInputs>();
+  const { 
+    register, 
+    handleSubmit, 
+    watch, 
+    formState: { errors, isSubmitting } 
+  } = useForm<SignUpFormInputs>();
+
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  // Watch password field to compare with confirmPassword field
+  const password = watch("password");
 
   const onSubmit = async (data: SignUpFormInputs) => {
     if (data.password !== data.confirmPassword) {
@@ -21,10 +31,28 @@ export default function SignUp() {
       return;
     }
 
-    console.log("Signing up with:", data);
-    await new Promise((resolve) => setTimeout(resolve, 2000)); 
-    alert("Signup successful!");
-    router.push("/login"); // Redirect to login after signup
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert("Signup successful!");
+        router.push("/login");
+      } else {
+        alert(result.error || "Signup failed");
+      }
+    } catch (error) {
+      console.error("Signup request failed:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -32,6 +60,20 @@ export default function SignUp() {
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium">Name</label>
+            <input
+              type="text"
+              id="name"
+              {...register("name", { required: "Name is required" })}
+              className={`w-full mt-1 px-4 py-2 border rounded-lg ${
+                errors.name ? "border-red-500" : "focus:ring-2 focus:ring-green-500"
+              }`}
+              placeholder="Enter your name"
+            />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+          </div>
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium">Email</label>
             <input
@@ -64,6 +106,7 @@ export default function SignUp() {
             >
               {showPassword ? "Hide" : "Show"}
             </button>
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
           </div>
 
           <div>

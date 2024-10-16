@@ -15,11 +15,26 @@ export default function ContactUs() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    alert("Thank you! We will get in touch soon.");
-    setFormData({ name: "", email: "", phone: "", inquiry: "General", message: "" });
+
+    try {
+      const response = await fetch("/api/contact-us", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Thank you! We will get in touch soon.");
+        setFormData({ name: "", email: "", phone: "", inquiry: "General", message: "" });
+      } else {
+        const result = await response.json();
+        alert(result.error || "Failed to submit your message.");
+      }
+    } catch (error) {
+      console.error("Error submitting message:", error);
+    }
   };
 
   return (
@@ -27,97 +42,53 @@ export default function ContactUs() {
       <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg">
         <h2 className="text-3xl font-bold text-center mb-4">Get in Touch</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name Field */}
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your name"
-            />
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your email"
-            />
-          </div>
-
-          {/* Phone Field */}
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your phone number"
-            />
-          </div>
-
-          {/* Inquiry Type */}
-          <div>
-            <label htmlFor="inquiry" className="block text-sm font-medium">
-              Inquiry Type
-            </label>
-            <select
-              id="inquiry"
-              name="inquiry"
-              value={formData.inquiry}
-              onChange={handleChange}
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            >
-              <option value="General">General Inquiry</option>
-              <option value="Support">Support</option>
-              <option value="Sales">Sales</option>
-              <option value="Feedback">Feedback</option>
-            </select>
-          </div>
-
-          {/* Message Field */}
-          <div>
-            <label htmlFor="message" className="block text-sm font-medium">
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              rows={4}
-              required
-              className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your message"
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700"
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            placeholder="Enter your name"
+            className="w-full px-4 py-2 border rounded-lg"
+          />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="Enter your email"
+            className="w-full px-4 py-2 border rounded-lg"
+          />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+            className="w-full px-4 py-2 border rounded-lg"
+          />
+          <select
+            name="inquiry"
+            value={formData.inquiry}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-lg"
           >
+            <option value="General">General Inquiry</option>
+            <option value="Support">Support</option>
+            <option value="Sales">Sales</option>
+            <option value="Feedback">Feedback</option>
+          </select>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            placeholder="Enter your message"
+            className="w-full px-4 py-2 border rounded-lg"
+            rows={4}
+          />
+          <button type="submit" className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
             Submit
           </button>
         </form>

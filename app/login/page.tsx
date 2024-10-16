@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface LoginFormInputs {
   email: string;
@@ -12,19 +12,38 @@ interface LoginFormInputs {
 export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormInputs>();
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const onSubmit = async (data: LoginFormInputs) => {
-    console.log("Logging in with:", data);
-    await new Promise((resolve) => setTimeout(resolve, 2000)); 
-    alert("Login successful!");
-    router.push("/dashboard"); 
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const { error } = await response.json();
+        setErrorMessage(error);
+        return;
+      }
+
+      const { token } = await response.json();
+      document.cookie = `token=${token}; path=/`;
+
+      alert("Login successful!");
+      router.push("/dashboard"); // Redirect to dashboard
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setErrorMessage("An unexpected error occurred.");
+    }
   };
 
   return (
     <div className="flexCenter min-h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        {errorMessage && <p className="text-red-500 text-center mb-4">{errorMessage}</p>}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium">Email</label>
@@ -43,7 +62,7 @@ export default function Login() {
           <div className="relative">
             <label htmlFor="password" className="block text-sm font-medium">Password</label>
             <input
-              type={showPassword ? "text" : "password"}
+              type="password"
               id="password"
               {...register("password", { required: "Password is required" })}
               className={`w-full mt-1 px-4 py-2 border rounded-lg ${
@@ -51,13 +70,6 @@ export default function Login() {
               }`}
               placeholder="Enter your password"
             />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-[35px] text-gray-600"
-            >
-              {showPassword ? "Hide" : "Show"}
-            </button>
             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
           </div>
 

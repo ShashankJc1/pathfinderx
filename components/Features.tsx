@@ -11,16 +11,16 @@ const Features = () => {
         
         {/* Phone Image Section */}
         <div className="relative flex-1 flexCenter h-auto">
-          <div className="relative w-[100%] max-w-[600px] aspect-[9/19] lg:w-[100%] lg:max-w-[800px]">
-            <Image
-              src="/phone.png"
-              alt="phone"
-              layout="fill"
-              objectFit="contain"
-              priority
-            />
-          </div>
-        </div>
+      <div className="relative w-full max-w-[600px] aspect-[9/19] lg:max-w-[800px]">
+        <Image
+          src="/phone.png"
+          alt="phone"
+          fill 
+          priority
+          style={{ objectFit: "contain" }} 
+        />
+      </div>
+    </div>
 
         {/* Features List Section */}
         <div className="z-20 flex flex-col flex-1 lg:w-[60%] text-center lg:text-left">
