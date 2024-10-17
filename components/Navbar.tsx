@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 
 // Public Navigation Links
 const NAV_LINKS_PUBLIC = [
-  { key: "home", label: "Home", href: "/pages/" },
+  { key: "home", label: "Home", href: "/" },
   { key: "how", label: "How do we work?", href: "/pages/how-do-we-work" },
   { key: "services", label: "Services", href: "/pages/services" },
   { key: "discover", label: "Discover", href: "/pages/discover" },
@@ -48,7 +48,7 @@ const Navbar = ({ isLoggedIn }: NavbarProps) => {
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       {/* Logo */}
-      <Link href={isLoggedIn ? "/dashboard" : "/pages/"}>
+      <Link href={isLoggedIn ? "/dashboard" : "/"}>
         <Image src="/logo.svg" alt="logo" width={100} height={50} />
       </Link>
 
