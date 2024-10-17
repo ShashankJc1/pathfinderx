@@ -31,17 +31,18 @@ The easiest way to deploy Next.js app is to use the [Vercel Platform](https://ve
 │   |   ├── contact-us
 │   |   ├── dashboard
 │   |   ├── user
-│   ├── contact-us
-│   ├── dashboard
-│   ├── discover
-│   ├── how-do-we-work
-│   ├── login
-│   ├── signup
-│   ├── services
-│   ├── profile
-│   ├── file-upload
-│   ├── layout.tsx
-│   ├── page.tsx
+|   ├── pages
+|   │   ├── contact-us
+|   │   ├── dashboard
+|   │   ├── discover
+|   │   ├── how-do-we-work
+|   │   ├── login
+|   │   ├── signup
+|   │   ├── services
+|   │   ├── profile
+|   │   ├── file-upload
+|   │   ├── layout.tsx
+|   │   ├── page.tsx
 ├── components
 │   ├── Button.tsx
 │   ├── Camp.tsx
