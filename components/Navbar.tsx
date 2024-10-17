@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Public Navigation Links
 const NAV_LINKS_PUBLIC = [
@@ -17,9 +17,9 @@ const NAV_LINKS_PUBLIC = [
 
 // Private (Logged-in) Navigation Links
 const NAV_LINKS_PRIVATE = [
-  { key: "home", label: "Home", href: "/pages/dashboard" },
-  { key: "profile", label: "Profile", href: "/pages/profile" },
-  { key: "search", label: "Search Flights/Hotels", href: "/pages/search-flights-hotels" },
+  { key: "home", label: "Home", href: "/dashboard" },
+  { key: "profile", label: "Profile", href: "/pages/dashboard/profile" },
+  { key: "search", label: "Search Flights/Hotels", href: "/pages/dashboard/search-flights-hotels" },
 ];
 
 interface NavbarProps {
@@ -36,9 +36,9 @@ const Navbar = ({ isLoggedIn }: NavbarProps) => {
   };
 
   const handleLogoutClick = () => {
-    // Replace this with your actual logout logic (e.g., clearing session)
-    router.push("/pages/");
+    document.cookie = "token=; Max-Age=0"; // Clear the token
     setMenuOpen(false);
+    router.push("/pages/login");
   };
 
   const toggleMenu = () => {
@@ -48,7 +48,7 @@ const Navbar = ({ isLoggedIn }: NavbarProps) => {
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       {/* Logo */}
-      <Link href="/pages/">
+      <Link href={isLoggedIn ? "/dashboard" : "/pages/"}>
         <Image src="/logo.svg" alt="logo" width={100} height={50} />
       </Link>
 
