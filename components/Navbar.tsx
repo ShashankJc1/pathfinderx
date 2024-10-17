@@ -69,7 +69,7 @@ const Navbar = ({ isLoggedIn }: NavbarProps) => {
           <Button
             type="button"
             title="Logout"
-            icon="/logout.svg"
+            icon="/user.svg"
             variant="btn_dark_green"
             onClick={handleLogoutClick}
           />
@@ -123,7 +123,7 @@ const Navbar = ({ isLoggedIn }: NavbarProps) => {
             <Button
               type="button"
               title="Logout"
-              icon="/logout.svg"
+              icon="/user.svg"
               variant="btn_dark_green"
               onClick={handleLogoutClick}
             />
