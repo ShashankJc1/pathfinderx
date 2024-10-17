@@ -40,9 +40,9 @@ The easiest way to deploy Next.js app is to use the [Vercel Platform](https://ve
 |   │   ├── signup
 |   │   ├── services
 |   │   ├── profile
-|   │   ├── file-upload
-|   │   ├── layout.tsx
-|   │   ├── page.tsx
+|   │   ├── search-flights-hotels
+|   ├── layout.tsx
+|   ├── page.tsx
 ├── components
 │   ├── Button.tsx
 │   ├── Camp.tsx
