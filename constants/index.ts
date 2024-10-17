@@ -3,10 +3,10 @@ import { label } from "framer-motion/client";
 // NAVIGATION
 export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
-    { href: '/how-do-we-work/', key: 'how_we_work', label: 'How do we work?' },
-    { href: '/services', key: 'services', label: 'Services' },
-    { href: '/discover', key: 'discover ', label: 'Discover ' },
-    { href: '/contact-us', key: 'contact_us', label: 'Contact Us' },
+    { href: '/pages/how-do-we-work/', key: 'how_we_work', label: 'How do we work?' },
+    { href: '/pages/services', key: 'services', label: 'Services' },
+    { href: '/pages/discover', key: 'discover ', label: 'Discover ' },
+    { href: '/pages/contact-us', key: 'contact_us', label: 'Contact Us' },
   ];
   
   // CAMP SECTION
@@ -55,7 +55,7 @@ export const NAV_LINKS = [
     {
       title: 'Learn More',
       links: [
-        {label: 'About PathfinderX', href: '/how-do-we-work'},
+        {label: 'About PathfinderX', href: '/pages/how-do-we-work'},
         {label: 'Press Releases', href: '#'},
         {label: 'Environment', href: '#'},
         {label: 'Jobs', href: '#'},

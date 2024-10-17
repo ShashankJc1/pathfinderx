@@ -1,55 +1,87 @@
 "use client";
 
-import { NAV_LINKS } from "@/constants"; 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 import Button from "./Button";
-import { useState } from "react"; 
+import { useState } from "react";
 
-const Navbar = () => {
+// Public Navigation Links
+const NAV_LINKS_PUBLIC = [
+  { key: "home", label: "Home", href: "/pages/" },
+  { key: "how", label: "How do we work?", href: "/pages/how-do-we-work" },
+  { key: "services", label: "Services", href: "/pages/services" },
+  { key: "discover", label: "Discover", href: "/pages/discover" },
+  { key: "contact", label: "Contact Us", href: "/pages/contact-us" },
+];
+
+// Private (Logged-in) Navigation Links
+const NAV_LINKS_PRIVATE = [
+  { key: "home", label: "Home", href: "/pages/dashboard" },
+  { key: "profile", label: "Profile", href: "/pages/profile" },
+  { key: "search", label: "Search Flights/Hotels", href: "/pages/search-flights-hotels" },
+];
+
+interface NavbarProps {
+  isLoggedIn: boolean;
+}
+
+const Navbar = ({ isLoggedIn }: NavbarProps) => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLoginClick = () => {
-    router.push("/login"); 
-    setMenuOpen(false); 
+    router.push("/pages/login");
+    setMenuOpen(false);
+  };
+
+  const handleLogoutClick = () => {
+    // Replace this with your actual logout logic (e.g., clearing session)
+    router.push("/pages/");
+    setMenuOpen(false);
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle menu open/close
+    setMenuOpen(!menuOpen);
   };
 
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       {/* Logo */}
-      <Link href="/">
+      <Link href="/pages/">
         <Image src="/logo.svg" alt="logo" width={100} height={50} />
       </Link>
 
       {/* Navigation Links - Desktop */}
       <ul className="hidden lg:flex h-full gap-12">
-        {NAV_LINKS.map((link) => (
+        {(isLoggedIn ? NAV_LINKS_PRIVATE : NAV_LINKS_PUBLIC).map((link) => (
           <li key={link.key}>
-            <Link
-              href={link.href}
-              className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold"
-            >
+            <Link href={link.href} className="regular-16 text-gray-50 hover:font-bold">
               {link.label}
             </Link>
           </li>
         ))}
       </ul>
 
-      {/* Login Button - Desktop */}
+      {/* Login/Logout Button - Desktop */}
       <div className="lg:flexCenter hidden">
-        <Button
-          type="button"
-          title="Login"
-          icon="/user.svg"
-          variant="btn_dark_green"
-          onClick={handleLoginClick}
-        />
+        {isLoggedIn ? (
+          <Button
+            type="button"
+            title="Logout"
+            icon="/logout.svg"
+            variant="btn_dark_green"
+            onClick={handleLogoutClick}
+          />
+        ) : (
+          <Button
+            type="button"
+            title="Login"
+            icon="/user.svg"
+            variant="btn_dark_green"
+            onClick={handleLoginClick}
+          />
+        )}
       </div>
 
       {/* Hamburger Icon - Mobile */}
@@ -59,7 +91,7 @@ const Navbar = () => {
         width={32}
         height={32}
         className="inline-block cursor-pointer lg:hidden"
-        onClick={toggleMenu} 
+        onClick={toggleMenu}
       />
 
       {/* Mobile Menu */}
@@ -68,7 +100,6 @@ const Navbar = () => {
           menuOpen ? "translate-x-0" : "translate-x-full"
         } lg:hidden`}
       >
-        {/* Close Button */}
         <button
           onClick={toggleMenu}
           className="absolute top-4 right-4 text-2xl font-bold"
@@ -77,8 +108,7 @@ const Navbar = () => {
         </button>
 
         <div className="flex flex-col items-center justify-center h-full gap-6">
-          {/* Navigation Links - Mobile */}
-          {NAV_LINKS.map((link) => (
+          {(isLoggedIn ? NAV_LINKS_PRIVATE : NAV_LINKS_PUBLIC).map((link) => (
             <Link
               key={link.key}
               href={link.href}
@@ -89,14 +119,23 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* Login Button - Mobile */}
-          <Button
-            type="button"
-            title="Login"
-            icon="/user.svg"
-            variant="btn_dark_green"
-            onClick={handleLoginClick}
-          />
+          {isLoggedIn ? (
+            <Button
+              type="button"
+              title="Logout"
+              icon="/logout.svg"
+              variant="btn_dark_green"
+              onClick={handleLogoutClick}
+            />
+          ) : (
+            <Button
+              type="button"
+              title="Login"
+              icon="/user.svg"
+              variant="btn_dark_green"
+              onClick={handleLoginClick}
+            />
+          )}
         </div>
       </div>
     </nav>

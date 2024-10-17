@@ -3,9 +3,9 @@ import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/dashboard" },
-  { label: "Profile", href: "/dashboard/profile" },
-  { label: "Settings", href: "/dashboard/settings" },
-  { label: "Logout", href: "/login" },
+  { label: "Profile", href: "/pages/dashboard/profile" },
+  { label: "Search Flights/Hotels", href: "/pages/dashboard/search-flights-hotels" },
+  { label: "Logout", href: "/pages/login" },
 ];
 
 export default function Sidebar() {
@@ -13,7 +13,7 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     document.cookie = "token=; Max-Age=0"; // Clear the token
-    router.push("/login"); // Redirect to login page
+    router.push("/pages/login"); // Redirect to login page
   };
 
   return (

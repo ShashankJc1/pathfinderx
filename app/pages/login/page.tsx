@@ -35,7 +35,7 @@ export default function Login() {
 
       // Small delay to ensure the token is set before redirect
       setTimeout(() => {
-        router.push("/dashboard");
+        router.push("/pages/dashboard");
       }, 300);
     } catch (error) {
       console.error("An error occurred:", error);
@@ -90,7 +90,7 @@ export default function Login() {
           <p className="text-center text-sm mt-4">
             Don’t have an account?{" "}
             <span
-              onClick={() => router.push("/signup")}
+              onClick={() => router.push("/pages/signup")}
               className="text-green-600 font-semibold cursor-pointer hover:underline"
             >
               Sign up here
