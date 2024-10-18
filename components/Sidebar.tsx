@@ -1,36 +1,37 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaHome, FaUser, FaSearch, FaPlane, FaHotel, FaClipboardList, FaBrain, FaGlobe } from "react-icons/fa"; // Removed FaSignOutAlt
 
 const navLinks = [
-  { label: "Home", href: "/dashboard" },
-  { label: "Profile", href: "/dashboard/profile" },
-  { label: "Settings", href: "/dashboard/settings" },
-  { label: "Logout", href: "/login" },
+  { label: "Home", href: "/dashboard", icon: <FaHome /> },
+  { label: "Profile", href: "/dashboard/profile", icon: <FaUser /> },
+  { label: "Search Flights", href: "/dashboard/search-flights", icon: <FaPlane /> },
+  { label: "Search Hotels", href: "/dashboard/search-hotels", icon: <FaHotel /> },
+  { label: "Itinerary", href: "/dashboard/itinerary", icon: <FaClipboardList /> },
+  { label: "Plan a Trip with our AI Buddy", href: "/dashboard/ai-buddy", icon: <FaBrain /> },
+  { label: "Research New Places", href: "/pages/discover", icon: <FaGlobe /> },
 ];
 
 export default function Sidebar() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    document.cookie = "token=; Max-Age=0"; // Clear the token
-    router.push("/login"); // Redirect to login page
-  };
+  const [activeLink, setActiveLink] = useState("/dashboard");
 
   return (
-    <aside className="w-64 bg-green-50 p-6">
-      <h2 className="text-2xl font-bold mb-8">Dashboard</h2>
-      <nav className="space-y-4">
+    <aside className="w-64 bg-gradient-to-b from-green-500 to-blue-500 h-screen p-6 shadow-lg text-white">
+      <h2 className="text-2xl font-bold mb-10 text-center">Dashboard</h2>
+      <nav className="space-y-6">
         {navLinks.map((link) => (
-          <Link key={link.href} href={link.href} className="block hover:font-bold">
-            {link.label}
+          <Link href={link.href} key={link.label} legacyBehavior>
+            <a
+              onClick={() => setActiveLink(link.href)}
+              className={`flex items-center gap-4 p-4 rounded-lg transition-colors duration-300 hover:bg-green-700 ${
+                activeLink === link.href ? "bg-green-700" : ""
+              }`}
+            >
+              <span className="text-xl">{link.icon}</span>
+              <span>{link.label}</span>
+            </a>
           </Link>
         ))}
-        <button
-          onClick={handleLogout}
-          className="text-red-500 mt-4 hover:underline"
-        >
-          Logout
-        </button>
       </nav>
     </aside>
   );

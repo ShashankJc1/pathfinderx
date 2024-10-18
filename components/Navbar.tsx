@@ -5,15 +5,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation"; 
 import Button from "./Button";
-import { useState } from "react"; 
+import { useState, useEffect } from "react"; 
 
 const Navbar = () => {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check login status (this can be replaced with your actual authentication logic)
+  useEffect(() => {
+    const token = document.cookie.includes("token"); // Simulated login check
+    setIsLoggedIn(token);
+  }, []);
 
   const handleLoginClick = () => {
     router.push("/pages/login"); 
     setMenuOpen(false); 
+  };
+
+  const handleLogoutClick = () => {
+    document.cookie = "token=; Max-Age=0"; // Clear the token to log out
+    setIsLoggedIn(false);
+    router.push("/pages/login"); // Redirect to login page
   };
 
   const toggleMenu = () => {
@@ -41,15 +54,25 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Login Button - Desktop */}
+      {/* Login/Logout Button - Desktop */}
       <div className="lg:flexCenter hidden">
-        <Button
-          type="button"
-          title="Login"
-          icon="/user.svg"
-          variant="btn_dark_green"
-          onClick={handleLoginClick}
-        />
+        {isLoggedIn ? (
+          <Button
+            type="button"
+            title="Logout"
+            icon="/logout.svg"
+            variant="btn_dark_green"
+            onClick={handleLogoutClick}
+          />
+        ) : (
+          <Button
+            type="button"
+            title="Login"
+            icon="/user.svg"
+            variant="btn_dark_green"
+            onClick={handleLoginClick}
+          />
+        )}
       </div>
 
       {/* Hamburger Icon - Mobile */}
@@ -89,14 +112,24 @@ const Navbar = () => {
             </Link>
           ))}
 
-          {/* Login Button - Mobile */}
-          <Button
-            type="button"
-            title="Login"
-            icon="/user.svg"
-            variant="btn_dark_green"
-            onClick={handleLoginClick}
-          />
+          {/* Login/Logout Button - Mobile */}
+          {isLoggedIn ? (
+            <Button
+              type="button"
+              title="Logout"
+              icon="/logout.svg"
+              variant="btn_dark_green"
+              onClick={handleLogoutClick}
+            />
+          ) : (
+            <Button
+              type="button"
+              title="Login"
+              icon="/user.svg"
+              variant="btn_dark_green"
+              onClick={handleLoginClick}
+            />
+          )}
         </div>
       </div>
     </nav>
