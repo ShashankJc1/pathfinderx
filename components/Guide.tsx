@@ -1,25 +1,51 @@
+"use client"; // Mark this as a client component
+
 import Image from 'next/image';
 import React from 'react';
+import { motion } from 'framer-motion'; // For animations
 
 const Guide = () => {
   return (
     <section className="flexCenter flex-col">
       <div className="padding-container max-container w-full pb-24">
-        <Image src="/camp.svg" alt="camp" width={50} height={50} />
-        <p className="uppercase regular-18 -mt-1 mb-3 text-green-50">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <Image src="/camp.svg" alt="camp" width={50} height={50} />
+        </motion.div>
+
+        <motion.p
+          className="uppercase regular-18 -mt-1 mb-3 text-green-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+        >
           We are here for you to
-        </p>
-        <div className="flex flex-wrap justify-between gap-5 lg:gap-10">
+        </motion.p>
+
+        <motion.div
+          className="flex flex-wrap justify-between gap-5 lg:gap-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
           <h2 className="bold-40 lg:bold-64 xl:max-w-[390px]">
             Guide You to Easy Paths
           </h2>
           <p className="regular-16 text-gray-30 xl:max-w-[520px]">
             With the PathfinderX, you’ll never get lost again. We provide offline maps for areas without internet. Invite your friends and family to explore wilderness trails, discover hidden valleys, and reach the peaks together.
           </p>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="flexCenter max-container relative w-full">
+      <motion.div
+        className="flexCenter max-container relative w-full"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <Image 
           src="/alaska.jpg"
           alt="boat"
@@ -28,7 +54,13 @@ const Guide = () => {
           className="w-full object-cover object-center 2xl:rounded-5xl"
         />
 
-        <div className="absolute flex bg-white/90 py-8 pl-5 pr-7 gap-3 rounded-3xl border shadow-md md:left-[5%] lg:top-20">
+        <motion.div
+          className="absolute flex bg-white/90 py-8 pl-5 pr-7 gap-3 rounded-3xl border shadow-md md:left-[5%] lg:top-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          whileHover={{ scale: 1.05, boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.1)" }} // Hover effect
+        >
           <Image 
             src="/meter.svg"
             alt="meter"
@@ -52,8 +84,8 @@ const Guide = () => {
               </h4>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

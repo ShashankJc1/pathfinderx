@@ -6,13 +6,14 @@ type ButtonProps = {
   icon?: string;
   variant: string;
   full?: boolean;
+  className?: string; // Add className to allow custom styles
   onClick?: () => void; // Optional onClick prop
 };
 
-const Button = ({ type, title, icon, variant, full, onClick }: ButtonProps) => {
+const Button = ({ type, title, icon, variant, full, className, onClick }: ButtonProps) => {
   return (
     <button
-      className={`flexCenter gap-3 rounded-full border ${variant} ${full && 'w-full'}`}
+      className={`flexCenter gap-3 rounded-full border ${variant} ${full && 'w-full'} ${className}`} // Use className prop here
       type={type}
       onClick={onClick} // Attach the onClick handler
     >
