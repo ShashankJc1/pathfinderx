@@ -45,7 +45,7 @@ export default function SignUp() {
       const result = await response.json();
       if (response.ok) {
         alert("Signup successful!");
-        router.push("/login");
+        router.push("/pages/login");
       } else {
         alert(result.error || "Signup failed");
       }
@@ -56,18 +56,21 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flexCenter min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <div
+      className="flexCenter min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/signup.jpg')" }} // Using login background image
+    >
+      <div className="w-full max-w-md bg-white/90 p-8 rounded-lg shadow-lg border border-gray-200 backdrop-blur-lg">
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">Create Your Account</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium">Name</label>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
             <input
               type="text"
               id="name"
               {...register("name", { required: "Name is required" })}
-              className={`w-full mt-1 px-4 py-2 border rounded-lg ${
-                errors.name ? "border-red-500" : "focus:ring-2 focus:ring-green-500"
+              className={`w-full mt-1 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 ${
+                errors.name ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="Enter your name"
             />
@@ -75,13 +78,13 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium">Email</label>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               id="email"
               {...register("email", { required: "Email is required" })}
-              className={`w-full mt-1 px-4 py-2 border rounded-lg ${
-                errors.email ? "border-red-500" : "focus:ring-2 focus:ring-green-500"
+              className={`w-full mt-1 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 ${
+                errors.email ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="Enter your email"
             />
@@ -89,13 +92,13 @@ export default function SignUp() {
           </div>
 
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium">Password</label>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
               {...register("password", { required: "Password is required" })}
-              className={`w-full mt-1 px-4 py-2 border rounded-lg ${
-                errors.password ? "border-red-500" : "focus:ring-2 focus:ring-green-500"
+              className={`w-full mt-1 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 ${
+                errors.password ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="Enter your password"
             />
@@ -110,13 +113,13 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
               {...register("confirmPassword", { required: "Confirm your password" })}
-              className={`w-full mt-1 px-4 py-2 border rounded-lg ${
-                errors.confirmPassword ? "border-red-500" : "focus:ring-2 focus:ring-green-500"
+              className={`w-full mt-1 px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-green-500 ${
+                errors.confirmPassword ? "border-red-500" : "border-gray-300"
               }`}
               placeholder="Confirm your password"
             />
@@ -128,7 +131,7 @@ export default function SignUp() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 ${
+            className={`w-full bg-green-600 text-white py-3 rounded-lg font-semibold shadow-md hover:bg-green-700 transition duration-300 ${
               isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >

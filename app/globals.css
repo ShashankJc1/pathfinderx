@@ -215,3 +215,4 @@ button:not(:disabled):hover {
 .animate-fadeIn {
   animation: fadeIn 1.5s ease-in-out;
 }
+
