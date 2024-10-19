@@ -3,20 +3,25 @@
 import { NAV_LINKS } from "@/constants"; 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; 
+import { useRouter, usePathname } from "next/navigation"; 
 import Button from "./Button";
 import { useState, useEffect } from "react"; 
 
 const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname() ?? '';  // Provide an empty string as fallback
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // Check login status (this can be replaced with your actual authentication logic)
+  // Hide navbar on dashboard or dashboard-related pages
   useEffect(() => {
-    const token = document.cookie.includes("token"); // Simulated login check
-    setIsLoggedIn(token);
-  }, []);
+    if (pathname.startsWith("/pages/dashboard")) {
+      setIsLoggedIn(false);
+    } else {
+      const token = document.cookie.includes("token"); // Check if token exists in cookies
+      setIsLoggedIn(token);
+    }
+  }, [pathname]);
 
   const handleLoginClick = () => {
     router.push("/pages/login"); 
@@ -24,7 +29,7 @@ const Navbar = () => {
   };
 
   const handleLogoutClick = () => {
-    document.cookie = "token=; Max-Age=0"; // Clear the token to log out
+    document.cookie = "token=; Max-Age=0; path=/"; // Clear the token cookie
     setIsLoggedIn(false);
     router.push("/pages/login"); // Redirect to login page
   };
@@ -32,6 +37,11 @@ const Navbar = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen); // Toggle menu open/close
   };
+
+  // Hide navbar on the dashboard or its subpages
+  if (pathname.startsWith("/pages/dashboard")) {
+    return null; // Don't render the navbar
+  }
 
   return (
     <nav className="bg-white text-black shadow-md flexBetween max-container padding-container relative z-30 py-5">

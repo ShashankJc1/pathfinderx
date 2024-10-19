@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     console.log("No token found. Redirecting to /login.");
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/pages/login", request.url));
   }
 
   try {

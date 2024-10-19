@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FaHome, FaUser, FaPlane, FaHotel, FaClipboardList, FaBrain, FaGlobe } from "react-icons/fa";
+import { FaBars, FaTimes, FaHome, FaUser, FaPlane, FaHotel, FaClipboardList, FaBrain, FaGlobe, FaSignOutAlt } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/pages/dashboard", icon: <FaHome /> },
@@ -14,32 +15,92 @@ const navLinks = [
   { label: "Research New Places", href: "/pages/discover", icon: <FaGlobe /> },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [activeLink, setActiveLink] = useState("/pages/dashboard");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleLogout = () => {
+    document.cookie = "token=; Max-Age=0; path=/"; // Clear the token cookie
+    router.push("/pages/login"); // Redirect to the login page
+  };
 
   return (
-    <aside className="w-64 h-screen bg-gradient-to-b from-gray-200 to-gray-400 p-6 shadow-lg flex flex-col justify-between">
-      {/* Navigation Links */}
-      <nav className="space-y-6">
-        {navLinks.map((link) => (
-          <Link href={link.href} key={link.label}>
-            <div
-              onClick={() => setActiveLink(link.href)}
-              className={`flex items-center gap-4 p-4 rounded-lg transition-colors duration-300 hover:bg-gray-300 ${
-                activeLink === link.href ? "bg-gray-300 text-green-900" : "text-gray-800"
-              }`}
-            >
-              <span className="text-xl text-green-600">{link.icon}</span>
-              <span>{link.label}</span>
-            </div>
-          </Link>
-        ))}
-      </nav>
+    <div className="flex h-full">
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 h-full bg-gradient-to-b from-gray-800 to-gray-900 text-white shadow-lg transition-all duration-300 z-40 ${
+          isSidebarOpen ? "w-64" : "w-0"
+        }`}
+      >
+        <div className={`${isSidebarOpen ? "block" : "hidden"} p-6`}>
+          {/* Logo */}
+          <div className="text-center mb-10">
+            <h1 className="text-2xl font-bold text-green-400">PathfinderX</h1>
+          </div>
 
-      {/* Footer */}
-      <div className="text-center text-gray-500">
-        <p className="text-sm">2024 © PathfinderX</p>
+          {/* Navigation Links */}
+          <nav className="space-y-6">
+            {navLinks.map((link) => (
+              <Link href={link.href} key={link.label}>
+                <div
+                  onClick={() => setActiveLink(link.href)}
+                  className={`flex items-center gap-4 p-4 rounded-lg transition-colors duration-300 hover:bg-green-500 hover:text-white ${
+                    activeLink === link.href ? "bg-green-600 text-white" : "text-gray-400"
+                  }`}
+                >
+                  <span className="text-xl">{link.icon}</span>
+                  <span>{link.label}</span>
+                </div>
+              </Link>
+            ))}
+
+            {/* Logout Button */}
+            <div
+              onClick={handleLogout}
+              className="flex items-center gap-4 p-4 rounded-lg transition-colors duration-300 hover:bg-red-500 hover:text-white text-gray-400 cursor-pointer"
+            >
+              <FaSignOutAlt className="text-xl" />
+              <span>Logout</span>
+            </div>
+          </nav>
+
+          {/* Footer */}
+          <div className="text-center text-gray-500 mt-10">
+            <p className="text-sm">2024 © PathfinderX</p>
+          </div>
+        </div>
+      </aside>
+
+      {/* Main content */}
+      <div className={`flex-1 transition-all duration-300 ${isSidebarOpen ? "ml-64" : "ml-0"}`}>
+        {/* Toggle Button */}
+        <button
+          onClick={toggleSidebar}
+          className={`text-white bg-green-600 p-3 rounded-full fixed top-4 z-50 shadow-lg focus:outline-none ${
+            isSidebarOpen ? "left-72" : "left-4" // Position button further right when sidebar is open
+          }`}
+        >
+          {isSidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+
+        {/* Your main content */}
+        <div className="p-8">
+          {children}
+        </div>
       </div>
-    </aside>
+
+      {/* Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-30"
+          onClick={toggleSidebar}
+        ></div>
+      )}
+    </div>
   );
 }
