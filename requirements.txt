@@ -1,0 +1,4 @@
+Flask
+vertexai
+google-cloud-core
+google-auth
