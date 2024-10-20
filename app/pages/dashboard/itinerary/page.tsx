@@ -3,6 +3,7 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
+import Link from "next/link";
 
 // Define the Itinerary type
 interface Itinerary {
@@ -123,11 +124,15 @@ export default function ItineraryPage() {
         {/* AI Planning Assistance */}
         <div className="bg-gradient-to-r from-green-500 to-teal-400 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <h2 className="text-2xl font-bold mb-4">Plan Your Trip with Our AI Buddy</h2>
-          <p className="text-lg mb-4">
-            Need help planning? Use our AI-powered trip planner for personalized suggestions.
-          </p>
-          <button className="px-6 py-3 bg-white text-green-500 rounded-lg hover:bg-gray-200 transition-all">Plan with AI Buddy</button>
-        </div>
+            <p className="text-lg mb-4">
+              Need help planning? Use our AI-powered trip planner for personalized suggestions.
+            </p>
+          <Link href="/pages/dashboard/ai-buddy">
+          <button className="px-6 py-3 bg-white text-green-500 rounded-lg hover:bg-gray-200 transition-all">
+              Plan with AI Buddy
+        </button>
+  </Link>
+</div>
       </div>
     </DashboardLayout>
   );

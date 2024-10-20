@@ -35,7 +35,8 @@ export default function AIBuddyPage() {
       const data = await response.json();
 
       if (data.success) {
-        setRecommendation(data.recommendation);
+        const cleanedRecommendation = data.recommendation.replace(/[\*\#]/g, ''); // Clean unwanted characters
+        setRecommendation(cleanedRecommendation);
       } else {
         setError(data.error || "Failed to fetch trip recommendation. Please try again later.");
       }
@@ -49,10 +50,12 @@ export default function AIBuddyPage() {
   return (
     <DashboardLayout>
       <div className="p-6 lg:px-20">
-        <h1 className="text-4xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-green-500 animate-fade-in">
+        <h1 className="regular-40 font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-green-500 animate-fade-in">
           Plan a Trip with Our AI Buddy
         </h1>
         <form onSubmit={handleSubmit} className="space-y-8 bg-white bg-opacity-60 backdrop-blur-lg p-8 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105">
+          
+          {/* Travel Type */}
           <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Type of Travel</label>
             <input
@@ -60,10 +63,11 @@ export default function AIBuddyPage() {
               value={travelType}
               onChange={(e) => setTravelType(e.target.value)}
               placeholder="e.g., adventure, relaxing"
-              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
+              className="w-full p-2 h-12 bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
+          {/* Number of People */}
           <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Number of People</label>
             <input
@@ -71,10 +75,11 @@ export default function AIBuddyPage() {
               value={peopleCount}
               onChange={(e) => setPeopleCount(e.target.value as number | "")}
               placeholder="e.g., 2"
-              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
+              className="w-full p-2 h-12 bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
+          {/* Country Preference */}
           <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Country Preference</label>
             <input
@@ -82,10 +87,11 @@ export default function AIBuddyPage() {
               value={countryPreference}
               onChange={(e) => setCountryPreference(e.target.value)}
               placeholder="e.g., Japan, none"
-              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
+              className="w-full p-2 h-12 bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
+          {/* Number of Days */}
           <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Number of Days</label>
             <input
@@ -93,9 +99,10 @@ export default function AIBuddyPage() {
               value={days}
               onChange={(e) => setDays(e.target.value as number | "")}
               placeholder="e.g., 7"
-              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
+              className="w-full p-2 h-12 bg-white rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
+
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-teal-500 to-teal-700 text-white text-xl px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-500"
@@ -115,9 +122,16 @@ export default function AIBuddyPage() {
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
         {recommendation && (
-          <div className="mt-8 p-6 bg-gray-100 rounded-2xl shadow-xl transform transition-all duration-500 animate-fade-in">
-            <h2 className="text-3xl font-bold mb-4 text-teal-600 text-center">Your AI-Generated Trip Recommendation</h2>
-            <pre className="text-lg text-gray-700 whitespace-pre-wrap">{recommendation}</pre>
+          <div className="mt-8 p-6 bg-gray-50 rounded-2xl shadow-xl transform transition-all duration-500 animate-fade-in">
+            <h2 className="bold-32 text-teal-600 text-center flex items-center justify-center">
+              <span className="mr-2">
+                <i className="fas fa-lightbulb"></i>
+              </span>
+              Your AI-Generated Trip Recommendation
+            </h2>
+            <pre className="text-lg text-gray-700 whitespace-pre-wrap leading-relaxed tracking-wide bg-white p-4 rounded-lg shadow-md">
+              {recommendation}
+            </pre>
           </div>
         )}
       </div>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars, FaTimes, FaHome, FaUser, FaPlane, FaHotel, FaClipboardList, FaBrain, FaGlobe, FaSignOutAlt } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/pages/dashboard", icon: <FaHome /> },
@@ -16,9 +16,9 @@ const navLinks = [
 ];
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
-  const [activeLink, setActiveLink] = useState("/pages/dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();  // Get the current path
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -48,9 +48,8 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
             {navLinks.map((link) => (
               <Link href={link.href} key={link.label}>
                 <div
-                  onClick={() => setActiveLink(link.href)}
                   className={`flex items-center gap-4 p-4 rounded-lg transition-colors duration-300 hover:bg-green-500 hover:text-white ${
-                    activeLink === link.href ? "bg-green-600 text-white" : "text-gray-400"
+                    pathname === link.href ? "bg-green-600 text-white" : "text-gray-400"
                   }`}
                 >
                   <span className="text-xl">{link.icon}</span>
