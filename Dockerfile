@@ -1,20 +1,21 @@
-# Use an official Python runtime as a parent image
+# Use official Python image as a base
 FROM python:3.9-slim
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Install any needed packages specified in requirements.txt
+# Copy requirements file and install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 8080 available to the world outside this container
+# Copy the Flask app code
+COPY . .
+
+# Set environment variables
+ENV GOOGLE_APPLICATION_CREDENTIALS=/config/google.json
+
+# Expose the port Flask runs on
 EXPOSE 8080
 
-# Set environment variable for Google credentials (if using a service account)
-ENV GOOGLE_APPLICATION_CREDENTIALS=/app/config/google.json
-
-# Run app.py when the container launches
-CMD ["python", "app.py"]
+# Run the Flask app using Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "generate_trip:app"]

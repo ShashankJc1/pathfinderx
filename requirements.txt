@@ -2,3 +2,7 @@ Flask
 vertexai
 google-cloud-core
 google-auth
+requests
+python-dotenv
+google-cloud-aiplatform==1.38.0
+gunicorn

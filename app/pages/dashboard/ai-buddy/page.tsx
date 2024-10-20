@@ -1,25 +1,25 @@
 "use client";
 
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 
 export default function AIBuddyPage() {
-  const [travelType, setTravelType] = useState<string>("adventure");
-  const [peopleCount, setPeopleCount] = useState<number>(1);
-  const [countryPreference, setCountryPreference] = useState<string>("");
-  const [days, setDays] = useState<number>(7);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [recommendation, setRecommendation] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [travelType, setTravelType] = useState("");
+  const [peopleCount, setPeopleCount] = useState<number | "">("");
+  const [countryPreference, setCountryPreference] = useState("");
+  const [days, setDays] = useState<number | "">("");
+  const [recommendation, setRecommendation] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Function to generate trip recommendation
-  const handleGenerateTrip = async (e: FormEvent) => {
+  // Function to handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null);
+    setError("");
 
     try {
-      const response = await fetch("/api/planTrip", {
+      const response = await fetch("/api/generate-trip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,97 +33,93 @@ export default function AIBuddyPage() {
       });
 
       const data = await response.json();
+
       if (data.success) {
         setRecommendation(data.recommendation);
       } else {
-        setError(data.error || "Failed to generate trip recommendation.");
+        setError(data.error || "Failed to fetch trip recommendation. Please try again later.");
       }
     } catch (err) {
-      setError("Something went wrong. Please try again later.");
-    } finally {
-      setLoading(false);
+      setError("An unexpected error occurred.");
     }
+
+    setLoading(false);
   };
 
   return (
     <DashboardLayout>
       <div className="p-6 lg:px-20">
-        {/* Header Section */}
-        <h1 className="text-4xl font-bold mb-6">Plan a Trip with our AI Buddy</h1>
-        <p className="text-lg text-gray-500 mb-6">
-          Let our AI buddy help you plan your perfect trip! Fill in the details below, and get personalized recommendations.
-        </p>
-
-        {/* Trip Planning Form */}
-        <form onSubmit={handleGenerateTrip} className="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          {/* Travel Type Input */}
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Travel Type</label>
+        <h1 className="text-4xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-green-500 animate-fade-in">
+          Plan a Trip with Our AI Buddy
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-8 bg-white bg-opacity-60 backdrop-blur-lg p-8 rounded-2xl shadow-2xl transform transition-all duration-500 hover:scale-105">
+          <div className="relative">
+            <label className="block text-lg font-medium text-gray-700">Type of Travel</label>
             <input
               type="text"
               value={travelType}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setTravelType(e.target.value)}
-              placeholder="e.g., adventure, cultural, family"
-              className="p-3 bg-white rounded-lg shadow-sm border-gray-300 focus:ring-4 focus:ring-green-400 w-full"
+              onChange={(e) => setTravelType(e.target.value)}
+              placeholder="e.g., adventure, relaxing"
+              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
-          {/* Number of People Input */}
-          <div>
+          <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Number of People</label>
             <input
               type="number"
               value={peopleCount}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setPeopleCount(Number(e.target.value))}
-              className="p-3 bg-white rounded-lg shadow-sm border-gray-300 focus:ring-4 focus:ring-green-400 w-full"
+              onChange={(e) => setPeopleCount(e.target.value as number | "")}
+              placeholder="e.g., 2"
+              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
-          {/* Country Preference Input */}
-          <div>
-            <label className="block text-lg font-medium text-gray-700">Country Preference (Optional)</label>
+          <div className="relative">
+            <label className="block text-lg font-medium text-gray-700">Country Preference</label>
             <input
               type="text"
               value={countryPreference}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setCountryPreference(e.target.value)}
-              placeholder="e.g., Japan, France, none"
-              className="p-3 bg-white rounded-lg shadow-sm border-gray-300 focus:ring-4 focus:ring-green-400 w-full"
+              onChange={(e) => setCountryPreference(e.target.value)}
+              placeholder="e.g., Japan, none"
+              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
 
-          {/* Number of Days Input */}
-          <div>
+          <div className="relative">
             <label className="block text-lg font-medium text-gray-700">Number of Days</label>
             <input
               type="number"
               value={days}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setDays(Number(e.target.value))}
-              className="p-3 bg-white rounded-lg shadow-sm border-gray-300 focus:ring-4 focus:ring-green-400 w-full"
+              onChange={(e) => setDays(e.target.value as number | "")}
+              placeholder="e.g., 7"
+              className="w-full p-4 bg-white rounded-lg border border-gray-300 focus:outline-none focus:ring-4 focus:ring-teal-300 transition-all duration-300 transform hover:-translate-y-1"
             />
           </div>
-
-          {/* Generate Button */}
-          <div className="text-center">
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-teal-600 transition-all w-full"
-              disabled={loading}
-            >
-              {loading ? "Generating..." : "Generate Trip"}
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-teal-500 to-teal-700 text-white text-xl px-6 py-4 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-110 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-teal-500"
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <div className="loader border-t-4 border-white"></div>
+                <span className="ml-2">Generating...</span>
+              </div>
+            ) : (
+              "Generate Trip"
+            )}
+          </button>
         </form>
 
-        {/* Recommendation Result */}
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+
         {recommendation && (
-          <div className="mt-10 bg-green-50 p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-green-700 mb-4">Your Trip Recommendation</h2>
-            <p className="text-lg text-gray-800">{recommendation}</p>
+          <div className="mt-8 p-6 bg-gray-100 rounded-2xl shadow-xl transform transition-all duration-500 animate-fade-in">
+            <h2 className="text-3xl font-bold mb-4 text-teal-600 text-center">Your AI-Generated Trip Recommendation</h2>
+            <pre className="text-lg text-gray-700 whitespace-pre-wrap">{recommendation}</pre>
           </div>
         )}
-
-        {/* Error Message */}
-        {error && <p className="text-red-500 text-lg mt-6">{error}</p>}
       </div>
     </DashboardLayout>
   );

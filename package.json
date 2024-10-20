@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/vertexai": "^1.9.0",
     "@headlessui/react": "^2.1.10",
     "@react-google-maps/api": "^2.20.3",
     "bcrpyt": "^2.0.0",
