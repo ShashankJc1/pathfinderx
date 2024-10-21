@@ -1,10 +1,12 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import mongoose from 'mongoose';
 
-const userSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true }
 });
 
-const User = models.User || model("User", userSchema);
+// Check if model already exists to avoid recompilation errors in Next.js
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
 export default User;

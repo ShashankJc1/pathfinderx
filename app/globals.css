@@ -216,3 +216,28 @@ button:not(:disabled):hover {
   animation: fadeIn 1.5s ease-in-out;
 }
 
+
+@layer utilities {
+  .btn_interactive {
+    @apply bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:from-teal-500 hover:to-green-500 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-teal-400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .btn_interactive:hover {
+    animation: bounce 0.3s ease-in-out;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+}
