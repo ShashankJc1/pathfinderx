@@ -20,28 +20,28 @@ export const NAV_LINKS = [
   // FEATURES SECTION
   export const FEATURES = [
     {
-      title: 'Many new locations every month',
+      title: 'Endless New Destinations',
       icon: '/location.svg',
       variant: 'orange',
       description:
         'Lots of new locations every month, because we have a worldwide community of travellers who share their best experiences with travelling',
     },
     {
-      title: 'Set an adventure schedule',
+      title: 'Adventure Scheduling Made Easy',
       icon: '/calendar.svg',
       variant: 'green',
       description:
         "Schedule an adventure with friends. On holidays, there are many interesting offers from PathfinderX. That way, there's no more discussion",
     },
     {
-      title: 'Real-Time Pricing and Availability',
+      title: 'Live Pricing, Real-Time Updates',
       icon: '/tech.svg',
       variant: 'green',
       description:
         'We display live updates of pricing and availability for flights, accommodations, and transport options, ensuring users have the most current information.',
     },
     {
-      title: 'AI Personalized Recommendations',
+      title: 'AI-Driven Travel Recommendations',
       icon: '/map.svg',
       variant: 'green',
       description:
