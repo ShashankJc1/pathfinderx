@@ -14,7 +14,7 @@ const adventureTravelDestinations = [
   { name: "Queenstown, New Zealand", image: "/queenstown.jpg", lat: -45.0312, lng: 168.6626 },
   { name: "Patagonia, Argentina", image: "/patagonia.jpg", lat: -50.9439, lng: -73.3282 },
   { name: "Iceland Ring Road, Iceland", image: "/iceland-ring-raod.png", lat: 65.0, lng: -18.0 },
-  { name: "Zion National Park, USA", image: "/zion-national-park.jpg", lat: 37.2982, lng: -113.0263 },
+  { name: "Zion National Park, USA", image: "/zion.jpg", lat: 37.2982, lng: -113.0263 },
   { name: "Moab, USA", image: "/moab.jpg", lat: 38.5733, lng: -109.5498 },
   { name: "Antelope Canyon, USA", image: "/antelope-canyon.jpg", lat: 36.8619, lng: -111.3743 },
   { name: "Yosemite National Park, USA", image: "/yosemite.jpg", lat: 37.8651, lng: -119.5383 },

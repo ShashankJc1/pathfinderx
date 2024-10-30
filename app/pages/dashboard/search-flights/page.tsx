@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DashboardLayout from "@/components/DashboardLayout"; // Assuming you have this layout component
+import DashboardLayout from "@/components/DashboardLayout";
 
 // Define the Place interface
 interface Place {
@@ -55,22 +55,39 @@ export default function SearchFlightsPage() {
   // Fetch flight results from backend API
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const response = await fetch('/api/searchFlights', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        departure,
-        destination,
-        departureDate,
-        returnDate: roundTrip ? returnDate : null,
-      }),
-    });
-
-    const data = await response.json();
-    setFlightResults(data.data.itineraries || []); // Store flight itineraries in state
+  
+    try {
+      const response = await fetch('/api/searchFlights', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          departure,
+          destination,
+          departureDate,
+          returnDate: roundTrip ? returnDate : null,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+  
+      const data = await response.json();
+      console.log("API Response Data:", data); // Log the entire API response to check its structure
+  
+      // Conditional update for flight results based on the expected structure
+      if (data && data.data && Array.isArray(data.data.itineraries)) {
+        setFlightResults(data.data.itineraries);
+      } else {
+        console.error("Unexpected data structure received:", data);
+      }
+  
+    } catch (error) {
+      console.error("Failed to fetch flight results:", error);
+      setFlightResults([]); // Clear results on error
+    }
   };
 
   // Fetch airport suggestions from SkyScanner Auto-Suggest API
@@ -83,17 +100,15 @@ export default function SearchFlightsPage() {
       console.error("API Key is missing");
       return;
     }
-
-    const response = await fetch(
-      `https://sky-scanner3.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=${query}`,
-      {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-key': apiKey,
-          'x-rapidapi-host': 'sky-scanner3.p.rapidapi.com',
-        } as HeadersInit,
-      }
-    );
+    
+    const response = await fetch(`https://sky-scanner3.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=${query}`, {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'sky-scanner3.p.rapidapi.com',
+      } as HeadersInit,
+    });
+    
 
     const data = await response.json();
     setAirportSuggestions(data.Places || []); // Store airport suggestions
@@ -122,7 +137,7 @@ export default function SearchFlightsPage() {
   };
 
   return (
-    <DashboardLayout> {/* Properly opened */}
+    <DashboardLayout>
       {/* Search Section */}
       <div className="bg-gray-100 p-6 rounded-lg shadow-lg mb-8">
         <form onSubmit={handleSearch} className="space-y-6">
@@ -272,5 +287,3 @@ export default function SearchFlightsPage() {
     </DashboardLayout>
   );
 }
-
-// Properly closed
