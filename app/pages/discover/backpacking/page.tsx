@@ -60,7 +60,7 @@ export default function Backpacking() {
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h1 className="text-center text-4xl font-bold lg:text-6xl mb-12">Backpacking Destinations</h1>
       <p className="text-center text-lg text-gray-500 mb-16 max-w-3xl mx-auto">
-        Discover the top backpacking destinations around the world. Explore beautiful locations and start planning your next adventure.
+        Discovering the top backpacking destinations around the world. Explore beautiful locations and start planning your next adventure.
       </p>
 
       {/* Destination Grid */}
