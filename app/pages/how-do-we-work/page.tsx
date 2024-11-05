@@ -15,7 +15,7 @@ export default function HowDoWeWork() {
       <div className="relative z-10 text-center text-white max-w-4xl space-y-12">
         <h1 className="text-5xl font-bold mb-4 animate-fadeIn">How Do We Work?</h1>
         <p className="text-xl max-w-3xl mx-auto animate-fadeIn">
-        Whether you're 18 or 80, PathfinderX makes exploring the world easy, fun, and accessible for everyone. From planning adventures to organizing itineraries, 
+        Whether you're 18 or 80,This is age  PathfinderX makes exploring the world easy, fun, and accessible for everyone. From planning adventures to organizing itineraries, 
           we help you explore the world step-by-step with smart travel tools and personalized recommendations.
         </p>
 
