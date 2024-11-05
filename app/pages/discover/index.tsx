@@ -50,7 +50,7 @@ export default function Discover() {
           Discover New Destinations
         </h1>
         <p className="text-center regular-20 text-gray-700 mb-16 max-w-3xl mx-auto">
-          Explore hidden gems and top-rated travel spots. From breathtaking landscapes to vibrant cityscapes, PathfinderX offers personalized recommendations to make every journey unforgettable.
+          Explore hidden gems and top-rated travel spots and scenic locations. From breathtaking landscapes to vibrant cityscapes, PathfinderX offers personalized recommendations to make every journey unforgettable.
         </p>
 
         {/* Travel Options Grid */}
