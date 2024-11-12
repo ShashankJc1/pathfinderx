@@ -102,7 +102,7 @@ const Camp = () => {
             className="regular-14 xl:regular-16 mt-5 text-black-30"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
+            transition={{ duration: 1, delay: 0.2 }}
             style={{ lineHeight: '1.75', maxWidth: '550px' }}
           >
             There are moments in life, where uncertainty can overwhelm us. It’s the sensation of standing at a crossroads without a clear direction, unsure of which path leads forward. Whether it’s wandering through unfamiliar places or navigating personal journeys, this feeling often brings doubt, anxiety, or hesitation. Yet, it also presents a unique opportunity: the chance to slow down, embrace discovery, ask for help, and let curiosity guide us to new experiences and destinations we never expected.
