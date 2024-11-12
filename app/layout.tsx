@@ -14,7 +14,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.svg" />
         <title>PathfinderX</title>
-        <meta name="description" content="Explore the world with ease and comfort" />
+        <meta name="Description" content="Explore the world with ease and comfort" />
       </head>
       <body>
         <Navbar />
