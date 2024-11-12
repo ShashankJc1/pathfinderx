@@ -47,7 +47,7 @@ export default function Discover() {
     <section className="bg-gradient-to-br from-gray-100 via-blue-50 to-white py-16 text-gray-800">
       <div className="max-container padding-container">
         <h1 className="text-center bold-40 lg:bold-64 mb-12 text-gray-900">
-          Discover New Destinations
+          Explore New Destinations
         </h1>
         <p className="text-center regular-20 text-gray-700 mb-16 max-w-3xl mx-auto">
           Explore hidden gems and top-rated travel spots and scenic locations. From breathtaking landscapes to vibrant cityscapes, PathfinderX offers personalized recommendations to make every journey unforgettable.
