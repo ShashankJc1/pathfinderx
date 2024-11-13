@@ -1,7 +1,9 @@
+// Import necessary modules
 import { connectToDatabase } from "@/lib/mongodb";
 import Contact from "@/models/contact";
 import { NextResponse } from "next/server";
 
+// Handle POST requests to save contact messages
 export async function POST(request: Request) {
   await connectToDatabase();
 
