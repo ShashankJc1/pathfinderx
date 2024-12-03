@@ -60,7 +60,7 @@ export default function BudgetTravel() {
     const scrollPosition = window.innerHeight + window.scrollY;
     const threshold = document.body.offsetHeight - 100;
 
-    if (scrollPosition > threshold && visibleDestinations < budgetTravelDestinations.length) {
+    if (scrollPosition > threshold && visibleDestinations < budgetTravelDestinations.flat().length) {
       setVisibleDestinations((prevCount) => prevCount + 2);
     }
   };
@@ -69,6 +69,13 @@ export default function BudgetTravel() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [visibleDestinations]);
+
+  // Flatten the nested array and prepare data for the map
+  const mapDestinations = budgetTravelDestinations.flat().map(({ name, lat, lng }) => ({
+    name,
+    lat,
+    lng,
+  }));
 
   return (
     <section className="max-container padding-container py-16">
@@ -79,12 +86,12 @@ export default function BudgetTravel() {
 
       {/* Render Google Map with Budget Travel Destinations */}
       <div className="mt-10">
-        <Map destinations={budgetTravelDestinations.filter(dest => dest.lat && dest.lng)} />
+        <Map destinations={mapDestinations} />
       </div>
 
       {/* Destination Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-        {budgetTravelDestinations.slice(0, visibleDestinations).map((destination, index) => (
+        {budgetTravelDestinations.flat().slice(0, visibleDestinations).map((destination, index) => (
           <div
             key={index}
             className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
@@ -103,7 +110,7 @@ export default function BudgetTravel() {
         ))}
       </div>
 
-      {visibleDestinations < budgetTravelDestinations.length && (
+      {visibleDestinations < budgetTravelDestinations.flat().length && (
         <div className="flexCenter mt-10">
           <p className="text-gray-500">Loading more destinations...</p>
         </div>

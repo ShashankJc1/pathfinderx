@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "cypress:open": "cypress open",
-    "test": "cypress run",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "test": "start-server-and-test dev http://localhost:3000 cypress:run"
   },
   "dependencies": {
     "@google-cloud/vertexai": "^1.9.0",
@@ -43,6 +43,7 @@
     "cypress": "^13.16.0",
     "jest": "^29.7.0",
     "postcss": "^8",
+    "start-server-and-test": "^2.0.8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

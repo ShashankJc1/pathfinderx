@@ -53,6 +53,12 @@ const luxuryTravelDestinations = [
   // Add more luxury travel destinations with lat/lng here...
 ];
 
+const mapDestinations = luxuryTravelDestinations.flat().map(({ name, lat, lng }) => ({
+  name,
+  lat,
+  lng,
+}));
+
 export default function LuxuryTravel() {
   const [visibleDestinations, setVisibleDestinations] = useState(2);
 
@@ -79,12 +85,12 @@ export default function LuxuryTravel() {
 
       {/* Render Google Map with Luxury Travel Destinations */}
       <div className="mt-10">
-        <Map destinations={luxuryTravelDestinations.filter(dest => dest.lat && dest.lng)} />
+        <Map destinations={mapDestinations} />
       </div>
 
       {/* Destination Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-        {luxuryTravelDestinations.slice(0, visibleDestinations).map((destination, index) => (
+        {luxuryTravelDestinations.flat().slice(0, visibleDestinations).map((destination, index) => (
           <div
             key={index}
             className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
