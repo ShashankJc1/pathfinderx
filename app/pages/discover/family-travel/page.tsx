@@ -54,6 +54,12 @@ const familyTravelDestinations = [
   // Add more family travel destinations with lat/lng here...
 ];
 
+const mapDestinations = familyTravelDestinations.flat().map(({ name, lat, lng }) => ({
+  name,
+  lat,
+  lng,
+}));
+
 export default function FamilyTravel() {
   const [visibleDestinations, setVisibleDestinations] = useState(2);
 
@@ -61,7 +67,7 @@ export default function FamilyTravel() {
     const scrollPosition = window.innerHeight + window.scrollY;
     const threshold = document.body.offsetHeight - 100;
 
-    if (scrollPosition > threshold && visibleDestinations < familyTravelDestinations.length) {
+    if (scrollPosition > threshold && visibleDestinations < familyTravelDestinations.flat().length) {
       setVisibleDestinations((prevCount) => prevCount + 2);
     }
   };
@@ -80,12 +86,12 @@ export default function FamilyTravel() {
 
       {/* Render Google Map with Family Travel Destinations */}
       <div className="mt-10">
-        <Map destinations={familyTravelDestinations.filter(dest => dest.lat && dest.lng)} />
+        <Map destinations={mapDestinations} />
       </div>
 
       {/* Destination Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-        {familyTravelDestinations.slice(0, visibleDestinations).map((destination, index) => (
+        {familyTravelDestinations.flat().slice(0, visibleDestinations).map((destination, index) => (
           <div
             key={index}
             className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
@@ -104,7 +110,7 @@ export default function FamilyTravel() {
         ))}
       </div>
 
-      {visibleDestinations < familyTravelDestinations.length && (
+      {visibleDestinations < familyTravelDestinations.flat().length && (
         <div className="flexCenter mt-10">
           <p className="text-gray-500">Loading more destinations...</p>
         </div>

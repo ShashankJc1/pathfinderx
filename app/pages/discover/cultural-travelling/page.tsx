@@ -54,6 +54,12 @@ const culturalTravelDestinations = [
   // Add more cultural travel destinations with lat/lng here...
 ];
 
+const mapDestinations = culturalTravelDestinations.flat().map(({ name, lat, lng }) => ({
+  name,
+  lat,
+  lng,
+}));
+
 export default function CulturalTravelling() {
   const [visibleDestinations, setVisibleDestinations] = useState(2);
 
@@ -61,7 +67,7 @@ export default function CulturalTravelling() {
     const scrollPosition = window.innerHeight + window.scrollY;
     const threshold = document.body.offsetHeight - 100;
 
-    if (scrollPosition > threshold && visibleDestinations < culturalTravelDestinations.length) {
+    if (scrollPosition > threshold && visibleDestinations < culturalTravelDestinations.flat().length) {
       setVisibleDestinations((prevCount) => prevCount + 2);
     }
   };
@@ -80,12 +86,12 @@ export default function CulturalTravelling() {
 
       {/* Render Google Map with Cultural Travel Destinations */}
       <div className="mt-10">
-        <Map destinations={culturalTravelDestinations.filter(dest => dest.lat && dest.lng)} />
+        <Map destinations={mapDestinations} />
       </div>
 
       {/* Destination Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-        {culturalTravelDestinations.slice(0, visibleDestinations).map((destination, index) => (
+        {culturalTravelDestinations.flat().slice(0, visibleDestinations).map((destination, index) => (
           <div
             key={index}
             className="relative group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
@@ -104,7 +110,7 @@ export default function CulturalTravelling() {
         ))}
       </div>
 
-      {visibleDestinations < culturalTravelDestinations.length && (
+      {visibleDestinations < culturalTravelDestinations.flat().length && (
         <div className="flexCenter mt-10">
           <p className="text-gray-500">Loading more destinations...</p>
         </div>
