@@ -24,8 +24,13 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Unit Tests
-        run: npm test
+      - name: Start Development Server
+        run: npm run dev &
+        env:
+          NODE_ENV: development
 
-      - name: Run E2E Tests
+      - name: Wait for Development Server
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Cypress Tests
         run: npx cypress run
